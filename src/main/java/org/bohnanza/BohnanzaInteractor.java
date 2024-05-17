@@ -23,7 +23,7 @@ public class BohnanzaInteractor {
 
     // Method to add a card to a field
     public void addCardToField(Card card, String fieldName) {
-        repository.getField(fieldName).addCard(card);
+        repository.getField(fieldName).plantCard(card);
         presenter.presentCardAddedToField(card, fieldName);
     }
 

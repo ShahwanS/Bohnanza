@@ -2,7 +2,6 @@ package org.bohnanza;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Field {
     private String name;
@@ -13,20 +12,41 @@ public class Field {
         this.cards = new ArrayList<>();
     }
 
-    // Method to add a card to the field
-    public void addCard(Card card) {
-        cards.add(card);
+    // plant a card if the field is empty or if the card matches the type
+    public boolean plantCard(Card card) {
+        if (canPlant(card)) {
+            cards.add(card);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Harvest the field and calculate the number of coins earned
+    public int harvest() {
+        if (cards.isEmpty()) {
+            return 0;
+        }
+
+        BeanType type = cards.get(0).getBeanType();
+        int size = cards.size();
+        int coins = type.getPayout(size);
+
+        cards.clear(); // Remove all cards from the field after harvesting
+        return coins;
+    }
+
+    // Check if the field can plant this type of card
+    public boolean canPlant(Card card) {
+        return cards.isEmpty() || cards.get(0).getBeanType() == card.getBeanType();
     }
 
     public String getName() {
         return name;
     }
 
-    public Map<Object, Object> getCards() {
-        return null;
+    public List<Card> getCards() {
+        return new ArrayList<>(cards);
     }
 
-
-    // Other methods as needed
 }
-

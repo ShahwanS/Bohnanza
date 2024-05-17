@@ -1,6 +1,6 @@
 package org.bohnanza;
 
-public class Card {
+class Card {
     private String name;
     private BeanType beanType;
     private int value;
@@ -14,8 +14,6 @@ public class Card {
         this.image = image;
         this.description = description;
     }
-
-    // Getters and setters for attributes
 
     public String getName() {
         return name;

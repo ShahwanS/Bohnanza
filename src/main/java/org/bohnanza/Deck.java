@@ -1,26 +1,36 @@
 package org.bohnanza;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Deck {
-    List<Card> cards;
+    private final List<Card> cards;
 
     public Deck() {
         this.cards = new ArrayList<>();
-        // Initialize deck with cards
+        initializeDeck();
     }
 
-    // Method to shuffle the deck
+    private void initializeDeck() {
+        for (BeanType beanType : BeanType.values()) {
+            for (int i = 0; i < beanType.getCardCount(); i++) {
+                String imageName = beanType.name().toLowerCase() + ".png"; // Placeholder image name
+                String description = "Description for " + beanType.getDisplayName(); // Placeholder description
+                cards.add(
+                        new Card(beanType.getDisplayName(), beanType, beanType.getCardCount(), imageName, description));
+            }
+        }
+    }
+
     public void shuffle() {
-        // Implement shuffle logic
+        Collections.shuffle(cards);
     }
 
-    // Method to draw a card from the deck
     public Card drawCard() {
-        // Implement draw card logic
-        return null; // Placeholder, replace with actual logic
+        if (!cards.isEmpty()) {
+            return cards.remove(0);
+        }
+        return null;
     }
-
-    // Other methods as needed
 }

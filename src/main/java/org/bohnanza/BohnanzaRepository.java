@@ -8,11 +8,13 @@ public class BohnanzaRepository {
     private Deck deck;
     private List<Field> fields;
     private Scanner scanner;
+    private Player player;
 
     public BohnanzaRepository() {
         this.deck = new Deck();
         this.fields = new ArrayList<>();
         this.scanner = new Scanner(System.in);
+
     }
 
     // Method to get number of players from user
@@ -23,18 +25,11 @@ public class BohnanzaRepository {
 
     // Method to generate initial game data
     public void generateInitialGameData(int numPlayers) {
-        // Generate fields for each player
-        for (int i = 1; i <= numPlayers; i++) {
-            fields.add(new Field("Field " + i));
-        }
-
-        // Shuffle and distribute cards to players
+        // shuffle deck and draw cards for each player
         deck.shuffle();
-        for (Field field : fields) {
-            for (int i = 0; i < 5; i++) {
-                Card card = deck.drawCard();
-                field.addCard(card);
-            }
+        for (int i = 0; i < numPlayers; i++) {
+            player = new Player("Player " + (i + 1));
+            player.drawCard(deck);
         }
     }
 
@@ -58,7 +53,6 @@ public class BohnanzaRepository {
         this.fields = fields;
     }
 
-
     public Field getField(String fieldName) {
         for (Field field : fields) {
             if (field.getName().equals(fieldName)) {
@@ -67,6 +61,5 @@ public class BohnanzaRepository {
         }
         return null;
     }
-
 
 }
