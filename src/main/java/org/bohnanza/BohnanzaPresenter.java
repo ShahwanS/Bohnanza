@@ -1,30 +1,35 @@
 package org.bohnanza;
 
-public class BohnanzaPresenter {
-    private BohnanzaView view;
+public class BohnanzaPresenter implements BohnanzaPresenterInterface {
+    private BohnanzaViewInterface view;
 
-    public BohnanzaPresenter(BohnanzaView view) {
+    @Override
+    public void setView(BohnanzaViewInterface view) {
         this.view = view;
     }
 
-    // Method to present a drawn card
-    public void presentCardDrawn(String cardInfo) {
-        view.displayCardDrawn(cardInfo);
+    @Override
+    public void startGame() {
+        if (view != null) {
+            view.displayWelcome();
+        }
+        // More game start logic can be added here
     }
 
-    // Method to present a shuffled deck
-    public void presentDeckShuffled() {
-        view.displayDeckShuffled();
+    @Override
+    public void presentUpdatedData(Player player) {
+        if (view != null) {
+            view.displayPlayerHand(player);
+            for (Field field : player.getFields()) {
+                view.displayField(field);
+            }
+        }
     }
 
-    // Method to present a card added to a field
-    public void presentCardAddedToField(Card card, String fieldName) {
-        String cardInfo = card.toString(); // Custom method to get card information
-        view.displayCardAddedToField(cardInfo, fieldName);
-    }
-
-    // Method to present an exchange offer
-    public void presentExchangeOffer(String offerInfo) {
-        view.displayExchangeOffer(offerInfo);
+    @Override
+    public void presentError(String message) {
+        if (view != null) {
+            view.displayError(message);
+        }
     }
 }

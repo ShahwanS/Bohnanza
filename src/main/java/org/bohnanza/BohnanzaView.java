@@ -1,43 +1,38 @@
 package org.bohnanza;
+import java.util.List;
 
-import java.util.Scanner;
+public class BohnanzaView implements BohnanzaViewInterface {
+    private BohnanzaInteractorInterface interactor;
 
-public class BohnanzaView {
-    public String messages;
-    private Scanner scanner;
-
-    public BohnanzaView() {
-        this.scanner = new Scanner(System.in);
+    @Override
+    public void setInteractor(BohnanzaInteractorInterface interactor) {
+        this.interactor = interactor;
     }
 
-    // Display a drawn card
-    public void displayCardDrawn(String cardInfo) {
-        System.out.println("Card drawn: " + cardInfo);
+    @Override
+    public void displayWelcome() {
+        System.out.println("Welcome to Bohnanza!");
     }
 
-    // Display a shuffled deck
-    public void displayDeckShuffled() {
-        System.out.println("Deck shuffled.");
+    @Override
+    public void displayPlayerHand(Player player) {
+        System.out.println(player.getName() + "'s hand:");
+        for (Card card : player.getHand()) {
+            System.out.println(" - " + card.getBeanType().getName());
+        }
     }
 
-    // Display a card added to a field
-    public void displayCardAddedToField(String cardInfo, String fieldName) {
-        System.out.println("Card " + cardInfo + " added to field " + fieldName + ".");
+    @Override
+    public void displayField(Field field) {
+        System.out.print("Field beans: ");
+        for (Card card : field.getBeans()) {
+            System.out.print(card.getBeanType().getName() + " ");
+        }
+        System.out.println();
     }
 
-    // Display an exchange offer
-    public void displayExchangeOffer(String offerInfo) {
-        System.out.println("Exchange offer: " + offerInfo);
-    }
-
-    // Receive user input
-    public String receiveUserInput() {
-        System.out.print("Enter your action: ");
-        return scanner.nextLine();
-    }
-
-    // Close scanner when done
-    public void closeScanner() {
-        scanner.close();
+    @Override
+    public void displayError(String message) {
+        System.out.println("Error: " + message);
     }
 }

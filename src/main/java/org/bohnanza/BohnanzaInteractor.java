@@ -1,39 +1,42 @@
 package org.bohnanza;
 
-public class BohnanzaInteractor {
-    private BohnanzaRepository repository;
-    private BohnanzaPresenter presenter;
+import java.util.List;
 
-    public BohnanzaInteractor(BohnanzaRepository repository, BohnanzaPresenter presenter) {
+public class BohnanzaInteractor implements BohnanzaInteractorInterface {
+    private BohnanzaRepositoryInterface repository;
+    private BohnanzaPresenterInterface presenter;
+
+    public BohnanzaInteractor(BohnanzaRepositoryInterface repository) {
         this.repository = repository;
+    }
+
+    @Override
+    public void setPresenter(BohnanzaPresenterInterface presenter) {
         this.presenter = presenter;
     }
 
-    // Method to draw a card
-    public void drawCard() {
-        String cardInfo = String.valueOf(repository.getDeck().drawCard());
-        presenter.presentCardDrawn(cardInfo);
+    @Override
+    public void initializeGame(List<Player> players) {
+        repository.generateInitialGameData(players.size());
+        players.addAll(repository.getPlayers());
     }
 
-    // Method to shuffle the deck
-    public void shuffleDeck() {
-        repository.getDeck().shuffle();
-        presenter.presentDeckShuffled();
+    @Override
+    public boolean executePlayerTurn(Player player) {
+        // Simulated turn logic here
+        if (presenter != null) {
+            presenter.presentUpdatedData(player);
+        }
+        return true;
     }
 
-    // Method to add a card to a field
-    public void addCardToField(Card card, String fieldName) {
-        repository.getField(fieldName).plantCard(card);
-        presenter.presentCardAddedToField(card, fieldName);
+    @Override
+    public void updatePlayers(List<Player> players) {
+        repository.savePlayers(players);
     }
 
-    // Method to make an exchange offer
-    public void makeExchangeOffer(String offerInfo) {
-        presenter.presentExchangeOffer(offerInfo);
-    }
-
-    // Method to accept an exchange offer
-    public void acceptExchangeOffer(String offerInfo) {
-        // Implement logic to accept exchange offer
+    @Override
+    public List<Player> getPlayers() {
+        return repository.getPlayers();
     }
 }

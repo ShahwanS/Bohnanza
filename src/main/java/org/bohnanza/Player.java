@@ -3,58 +3,20 @@ package org.bohnanza;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
     private String name;
     private List<Card> hand;
     private List<Field> fields;
-    private int coins;
 
     public Player(String name) {
         this.name = name;
         this.hand = new ArrayList<>();
         this.fields = new ArrayList<>();
-        this.fields.add(new Field("Field 1"));
-        this.fields.add(new Field("Field 2"));
-        this.coins = 0;
-    }
-
-    // Draw a card from the deck
-    public void drawCard(Deck deck) {
-        for (int i = 0; i <= 5; i++) {
-            Card card = deck.drawCard();
-            if (card != null) {
-                hand.add(card);
-            }
-        }
-
-    }
-
-    // Plant a card in a specific field
-    public boolean plantCard(Card card, int fieldIndex) {
-        if (fieldIndex < fields.size()) {
-            return fields.get(fieldIndex).plantCard(card);
-        }
-        return false;
-    }
-
-    // Buy a new field (costs 3 coins)
-    public boolean buyField() {
-        if (coins >= 3) {
-            fields.add(new Field("Field " + (fields.size() + 1)));
-            coins -= 3;
-            return true;
-        }
-        return false;
-    }
-
-    // Harvest a field
-    public int harvestField(int fieldIndex) {
-        if (fieldIndex < fields.size()) {
-            int earnedCoins = fields.get(fieldIndex).harvest();
-            coins += earnedCoins;
-            return earnedCoins;
-        }
-        return 0;
+        this.fields.add(new Field());
+        this.fields.add(new Field()); // Assuming each player starts with two fields
     }
 
     public String getName() {
@@ -62,18 +24,29 @@ public class Player {
     }
 
     public List<Card> getHand() {
-        return new ArrayList<>(hand);
+        return hand;
     }
 
     public List<Field> getFields() {
-        return new ArrayList<>(fields);
+        return fields;
     }
 
-    public int getCoins() {
-        return coins;
+    public void addCardToHand(Card card) {
+        hand.add(card);
     }
 
-    public void setCoins(int coins) {
-        this.coins = coins;
+    public void plantBeanFromHand(int fieldIndex) {
+        if (fieldIndex < fields.size() && fields.get(fieldIndex).isCompatible(hand.get(0))) {
+            fields.get(fieldIndex).plantBean(hand.remove(0));
+        } else {
+            // Handle incompatible planting
+        }
+    }
+
+    public void harvestField(int fieldIndex) {
+        if (fieldIndex < fields.size()) {
+            List<Card> harvested = fields.get(fieldIndex).harvest();
+            // Handle harvested beans, e.g., convert to bean dollars
+        }
     }
 }

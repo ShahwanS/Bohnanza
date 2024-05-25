@@ -1,40 +1,30 @@
 package org.bohnanza;
 
-//fill up an enum with a card type the amount of cards in the deck and the payouts for the amount of cards in the field
 public enum BeanType {
-    GARTEN_BOHNE("GartenBohne", 6, new int[] { 0, 0, 2, 3, 4 }),
-    ROTE_BOHNE("RoteBohne", 8, new int[] { 0, 0, 3, 4, 5 }),
-    AUGEN_BOHNE("AugenBohne", 10, new int[] { 0, 0, 4, 5, 6 }),
-    SOJA_BOHNE("SojaBohne", 12, new int[] { 0, 0, 4, 6, 7 }),
-    BRECHEN_BOHNE("BrechenBohne", 14, new int[] { 0, 0, 5, 6, 7 }),
-    FIRE_BOHNE("Saubohne", 16, new int[] { 0, 0, 5, 7, 8 }),
-    FEUER_BOHNE("FeuerBohne", 18, new int[] { 0, 0, 6, 8, 9 }),
-    BLAU_BOHNE("FeuerBohne", 20, new int[] { 0, 0, 6, 8, 9 });
+    GARDEN_BEAN("Garden Bean", new int[]{2, 3, 4, 6}),
+    RED_BEAN("Red Bean", new int[]{2, 3, 4, 5}),
+    BLACK_EYED_BEAN("Black-eyed Bean", new int[]{4, 5, 6, 7}),
+    SOY_BEAN("Soy Bean", new int[]{2, 4, 6, 7}),
+    GREEN_BEAN("Green Bean", new int[]{3, 5, 7, 8}),
+    STINK_BEAN("Stink Bean", new int[]{3, 5, 7, 8}),
+    CHILI_BEAN("Chili Bean", new int[]{3, 6, 8, 9}),
+    BLUE_BEAN("Blue Bean", new int[]{4, 6, 8, 10}),
+    WAX_BEAN("Wax Bean", new int[]{4, 7, 9, 11}),
+    COFFEE_BEAN("Coffee Bean", new int[]{4, 7, 10, 12});
 
-    private final String displayName;
-    private final int cardCount;
-    private final int[] payouts;
+    private final String name;
+    private final int[] harvestValues;
 
-    BeanType(String displayName, int cardCount, int[] payouts) {
-        this.displayName = displayName;
-        this.cardCount = cardCount;
-        this.payouts = payouts;
+    BeanType(String name, int[] harvestValues) {
+        this.name = name;
+        this.harvestValues = harvestValues;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getName() {
+        return name;
     }
 
-    public int getCardCount() {
-        return cardCount;
-    }
-
-    public int getPayout(int count) {
-        if (count < payouts.length) {
-            return payouts[count];
-        } else {
-            return 0;
-
-        }
+    public int[] getHarvestValues() {
+        return harvestValues;
     }
 }

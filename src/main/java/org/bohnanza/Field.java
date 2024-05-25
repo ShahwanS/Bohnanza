@@ -4,49 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Field {
-    private String name;
-    private List<Card> cards;
+    private List<Card> beans;
 
-    public Field(String name) {
-        this.name = name;
-        this.cards = new ArrayList<>();
+    public Field() {
+        this.beans = new ArrayList<>();
     }
 
-    // plant a card if the field is empty or if the card matches the type
-    public boolean plantCard(Card card) {
-        if (canPlant(card)) {
-            cards.add(card);
-            return true;
-        } else {
-            return false;
-        }
+    public void plantBean(Card card) {
+        beans.add(card);
     }
 
-    // Harvest the field and calculate the number of coins earned
-    public int harvest() {
-        if (cards.isEmpty()) {
-            return 0;
-        }
-
-        BeanType type = cards.get(0).getBeanType();
-        int size = cards.size();
-        int coins = type.getPayout(size);
-
-        cards.clear(); // Remove all cards from the field after harvesting
-        return coins;
+    public List<Card> harvest() {
+        List<Card> harvested = new ArrayList<>(beans);
+        beans.clear();
+        return harvested;
     }
 
-    // Check if the field can plant this type of card
-    public boolean canPlant(Card card) {
-        return cards.isEmpty() || cards.get(0).getBeanType() == card.getBeanType();
+    public int getBeanCount() {
+        return beans.size();
     }
 
-    public String getName() {
-        return name;
+    public boolean isCompatible(Card card) {
+        return beans.isEmpty() || beans.get(0).getBeanType() == card.getBeanType();
     }
 
-    public List<Card> getCards() {
-        return new ArrayList<>(cards);
+    public List<Card> getBeans() {
+        return beans;
     }
-
 }
