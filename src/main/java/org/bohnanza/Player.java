@@ -3,9 +3,6 @@ package org.bohnanza;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Player {
     private String name;
     private List<Card> hand;
@@ -35,11 +32,13 @@ public class Player {
         hand.add(card);
     }
 
-    public void plantBeanFromHand(int fieldIndex) {
-        if (fieldIndex < fields.size() && fields.get(fieldIndex).isCompatible(hand.get(0))) {
-            fields.get(fieldIndex).plantBean(hand.remove(0));
+    public void plantBean(Card card, int fieldIndex) {
+        if (hand.contains(card) && fieldIndex < fields.size() && fields.get(fieldIndex).isCompatible(card)) {
+            fields.get(fieldIndex).plantBean(card);
+            hand.remove(card);
         } else {
-            // Handle incompatible planting
+            // Handle incompatible planting, e.g., notify player
+            System.out.println("Incompatible bean type. Cannot plant in this field or card not in hand.");
         }
     }
 
@@ -48,5 +47,29 @@ public class Player {
             List<Card> harvested = fields.get(fieldIndex).harvest();
             // Handle harvested beans, e.g., convert to bean dollars
         }
+    }
+
+    public void plantInitialBeans() {
+        if (!hand.isEmpty()) {
+            plantBean(hand.get(0), 0);
+        }
+        if (!hand.isEmpty()) {
+            plantBean(hand.get(0), 0);
+        }
+    }
+
+    public void drawCards(Deck deck, int numberOfCards) {
+        for (int i = 0; i < numberOfCards; i++) {
+            addCardToHand(deck.draw());
+        }
+    }
+
+    public int harvestAllFields() {
+        int totalBeans = 0;
+        for (Field field : fields) {
+            totalBeans += field.getBeanCount();
+            field.harvest();
+        }
+        return totalBeans;
     }
 }

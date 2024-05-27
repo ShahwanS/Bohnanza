@@ -3,6 +3,10 @@ package org.bohnanza;
 public class BohnanzaPresenter implements BohnanzaPresenterInterface {
     private BohnanzaViewInterface view;
 
+    public BohnanzaPresenter(BohnanzaViewInterface view) {
+        this.view = view;
+    }
+
     @Override
     public void setView(BohnanzaViewInterface view) {
         this.view = view;
@@ -13,7 +17,6 @@ public class BohnanzaPresenter implements BohnanzaPresenterInterface {
         if (view != null) {
             view.displayWelcome();
         }
-        // More game start logic can be added here
     }
 
     @Override

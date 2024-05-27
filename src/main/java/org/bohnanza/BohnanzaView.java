@@ -1,5 +1,4 @@
 package org.bohnanza;
-import java.util.List;
 
 public class BohnanzaView implements BohnanzaViewInterface {
     private BohnanzaInteractorInterface interactor;
@@ -34,5 +33,18 @@ public class BohnanzaView implements BohnanzaViewInterface {
     @Override
     public void displayError(String message) {
         System.out.println("Error: " + message);
+    }
+
+    @Override
+    public void displayTurn(Player player) {
+        System.out.println("It's " + player.getName() + "'s turn.");
+        interactor.executePlayerTurn(player);
+    }
+
+    public void plantBean(Card card, int fieldIndex) {
+        interactor.getPlayers().stream()
+                .filter(player -> player.getHand().contains(card))
+                .findFirst()
+                .ifPresent(player -> interactor.plantBean(card, fieldIndex));
     }
 }
