@@ -1,5 +1,12 @@
 package org.bohnanza;
 
+import org.bohnanza.model.Player;
+import org.bohnanza.repository.BohnanzaInteractorInterface;
+import org.bohnanza.services.DependencyAssemblyFactory;
+import org.bohnanza.services.servicesInterfaces.DependencyAssemblyFactoryInterface;
+import org.bohnanza.view.BohnanzaPresenterInterface;
+import org.bohnanza.view.BohnanzaViewInterface;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;

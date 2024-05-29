@@ -1,5 +1,9 @@
 package org.bohnanza;
 
+import org.bohnanza.model.Deck;
+import org.bohnanza.model.GameVersion;
+import org.bohnanza.model.Player;
+
 import java.util.List;
 
 public class Game {

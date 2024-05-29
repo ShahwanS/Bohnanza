@@ -1,5 +1,8 @@
 package org.bohnanza;
 
+import org.bohnanza.model.Card;
+import org.bohnanza.model.Player;
+
 public class Trade {
     private Player player;
     private Card card;
